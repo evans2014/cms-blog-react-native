@@ -13,6 +13,8 @@
 
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="{{ route('admin.users.index') }}">Users</a>
+        <a href="{{ route('profile.edit') }}">Profile</a>
+
         <a href="{{ route('admin.posts.index') }}">Posts</a>
         <a href="{{ route('admin.categories.index') }}">Categories</a>
         <a href="{{ route('admin.pages.index') }}">Pages</a>
