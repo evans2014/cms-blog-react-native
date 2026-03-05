@@ -1,17 +1,66 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('admin.layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+@section('content')
+
+    <h1 class="page-title">Dashboard</h1>
+
+    <!-- Stats Cards -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:30px;">
+
+        <div class="card">
+            <h3>Total Posts</h3>
+            <p style="font-size:28px; font-weight:bold;">
+                {{ \App\Models\Post::count() }}
+            </p>
+            <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Manage</a>
         </div>
+
+        <div class="card">
+            <h3>Total Pages</h3>
+            <p style="font-size:28px; font-weight:bold;">
+                {{ \App\Models\Page::count() }}
+            </p>
+            <a href="{{ route('admin.pages.index') }}" class="btn btn-primary">Manage</a>
+        </div>
+
+        <div class="card">
+            <h3>Menu Items</h3>
+            <p style="font-size:28px; font-weight:bold;">
+                {{ \App\Models\Menu::count() }}
+            </p>
+            <a href="{{ route('admin.menus.index') }}" class="btn btn-primary">Manage</a>
+        </div>
+
     </div>
-</x-app-layout>
+
+    <!-- Latest Posts -->
+    <div class="card">
+        <h2 style="margin-bottom:15px;">Latest Posts</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach(\App\Models\Post::latest()->take(5)->get() as $post)
+                <tr>
+                    <td>{{ $post->title }}</td>
+                    <td>{{ $post->is_published ? 'Yes' : 'No' }}</td>
+                    <td>{{ $post->created_at->format('d M Y') }}</td>
+                    <td>
+                        <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary">
+                            Edit
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+@endsection
