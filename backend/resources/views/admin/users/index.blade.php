@@ -40,10 +40,10 @@
                     <td>
                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary">Edit</a>
                         @if($user->id !== auth()->id())
-                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
+                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" style="display: inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Сигурни ли сте?')">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Сигурни ли сте?')">
                                     Изтрий
                                 </button>
                             </form>
