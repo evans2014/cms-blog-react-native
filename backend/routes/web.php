@@ -49,7 +49,14 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('/pages/{id}/restore', [PageAdmin::class, 'restore'])->name('pages.restore');
     Route::delete('/pages/{id}/force-delete', [PageAdmin::class, 'forceDelete'])->name('pages.forceDelete');
 
-    Route::resource('users', UserController::class);
+    Route::resource('/users', UserController::class);
+    //Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/admin/users/trash', [UserController::class, 'trash'])->name('users.trash');
+
+    Route::post('/users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
+    Route::delete('/users/{id}/force-delete', [UserController::class, 'forceDelete'])->name('users.forceDelete');
+
     Route::resource('pages', \App\Http\Controllers\Admin\PageController::class);
     Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
     Route::resource('menus', \App\Http\Controllers\Admin\MenuController::class);

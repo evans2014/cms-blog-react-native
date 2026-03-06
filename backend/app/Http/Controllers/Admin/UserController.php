@@ -21,6 +21,11 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
+    public function show(User $user)
+    {
+        return redirect()->route('admin.users.index');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -75,12 +80,37 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        // Не позволявай изтриване на текущия потребител
+
         if ($user->id === auth()->id()) {
             return redirect()->back()->withErrors('Не можете да изтриете собствения си акаунт.');
         }
-
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'Потребителят е изтрит.');
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Потребителят е преместен в кошчето.');
+    }
+
+    public function trash()
+    {
+        $trashedUsers = User::onlyTrashed()->get();
+        return view('admin.users.trash', compact('trashedUsers'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('admin.users.trash')
+            ->with('success', 'Потребителят е възстановен.');
+    }
+
+    public function forceDelete($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+
+        return redirect()->route('admin.users.trash')
+            ->with('success', 'Потребителят е изтрит окончателно.');
     }
 }

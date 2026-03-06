@@ -10,54 +10,95 @@
                 <a href="{{ route('admin.users.create') }}" class="btn btn-success">
                     + Нов потребител
                 </a>
+                <a href="{{ route('admin.users.trash') }}" class="btn btn-danger">Trash</a>
             </div>
         </div>
 
         @if(session('success'))
-            <div>{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <div>
-            <table class="table">
-                <thead>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Име</th>
+                <th>Email</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($users as $user)
                 <tr>
-                    <th>Име</th>
-                    <th>Имейл</th>
-                    <th>Админ</th>
-                    <th>Действия</th>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td width="200">
+                        <a href="{{ route('admin.users.edit', $user->id) }}"
+                           class="btn btn-primary btn-sm">Редактирай</a>
+                        @if($user->id != 1)
+                            <button type="button" class="btn btn-danger btn-sm btn-delete"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-id="{{ $user->id }}"
+                                    data-name="{{ $user->name }}">
+                                Изтрий
+                            </button>
+                        @endif
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            @if($user->is_admin)
-                                <span>Да</span>
-                            @else
-                                <span>Не</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary">Edit</a>
-                            @if($user->id !== auth()->id())
-                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline"
-                                      style="display: inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('Сигурни ли сте?')">
-                                        Изтрий
-                                    </button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            @empty
+                <tr>
+                    <td colspan="4" class="text-center">Няма потребители</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+
+
+        <!-- Общ Modal за Delete -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Потвърждение</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Сигурни ли сте, че искате да изтриете потребителя <strong id="userName"></strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отказ</button>
+                        <form id="deleteForm" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Изтрий</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JS за динамичен modal -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const deleteForm = document.getElementById('deleteForm');
+            const userName = document.getElementById('userName');
+
+            document.querySelectorAll('.btn-delete').forEach(button => {
+              button.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const name = this.dataset.name;
+
+                userName.textContent = name;
+                deleteForm.action = `/admin/users/${id}`;
+              });
+            });
+          });
+        </script>
 
         <div class="mt-4">
             {{ $users->links() }}

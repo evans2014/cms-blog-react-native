@@ -13,7 +13,7 @@
                 {{ \App\Models\Post::count() }}
             </p>
             <div class="mb-2">
-            <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Manage</a>
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Manage</a>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
                 {{ \App\Models\Page::count() }}
             </p>
             <div class="mb-2">
-            <a href="{{ route('admin.pages.index') }}" class="btn btn-primary">Manage</a>
+                <a href="{{ route('admin.pages.index') }}" class="btn btn-primary">Manage</a>
             </div>
         </div>
 
@@ -33,9 +33,9 @@
                 {{ \App\Models\Menu::count() }}
             </p>
 
-                <div class="mb-2">
-            <a href="{{ route('admin.menus.index') }}" class="btn btn-primary">Manage</a>
-                </div>
+            <div class="mb-2">
+                <a href="{{ route('admin.menus.index') }}" class="btn btn-primary">Manage</a>
+            </div>
         </div>
 
     </div>
@@ -44,7 +44,7 @@
     <div class="card">
         <h2 style="margin-bottom:15px;">Latest Posts</h2>
 
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>Title</th>
@@ -59,7 +59,7 @@
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->is_published ? 'Yes' : 'No' }}</td>
                     <td>{{ $post->created_at->format('d M Y') }}</td>
-                    <td>
+                    <td width="200">
                         <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-secondary">
                             Edit
                         </a>

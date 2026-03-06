@@ -2,24 +2,30 @@
 
 @section('content')
 
-    <h1 class="page-title">{{ isset($menu) ? 'Edit Menu Item' : 'Add Menu Item' }}</h1>
-
     <div class="card p-4">
-        <form action="{{ isset($menu) ? route('admin.menus.update', $menu->id) : route('admin.menus.store') }}" method="POST">
+        <h1 class="page-title">{{ isset($menu) ? 'Edit Menu Item' : 'Add Menu Item' }}</h1>
+        <form action="{{ isset($menu) ? route('admin.menus.update', $menu->id) : route('admin.menus.store') }}"
+              method="POST">
             @csrf
-            @if(isset($menu)) @method('PUT') @endif
+            @if(isset($menu))
+                @method('PUT')
+            @endif
 
             <div class="form-group mb-3">
                 <label>Title</label>
-                <input type="text" name="title" class="form-control" value="{{ old('title', $menu->title ?? '') }}" required>
+                <input type="text" name="title" class="form-control" value="{{ old('title', $menu->title ?? '') }}"
+                       required>
             </div>
 
             <div class="form-group mb-3">
                 <label>Type</label>
                 <select name="type" id="menu-type" class="form-control" required>
                     <option value="page" {{ (old('type', $menu->type ?? '')=='page')?'selected':'' }}>Page</option>
-                    <option value="post_overview" {{ (old('type', $menu->type ?? '')=='post_overview')?'selected':'' }}>News Overview</option>
-                    <option value="custom" {{ (old('type', $menu->type ?? '')=='custom')?'selected':'' }}>Custom URL</option>
+                    <option value="post_overview" {{ (old('type', $menu->type ?? '')=='post_overview')?'selected':'' }}>
+                        News Overview
+                    </option>
+                    <option value="custom" {{ (old('type', $menu->type ?? '')=='custom')?'selected':'' }}>Custom URL
+                    </option>
                 </select>
             </div>
 
@@ -48,11 +54,11 @@
     </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         function toggleMenuFields() {
           const type = document.getElementById('menu-type').value;
-          document.getElementById('page-select-group').style.display = type=='page' ? 'block' : 'none';
-          document.getElementById('custom-url-group').style.display = type=='custom' ? 'block' : 'none';
+          document.getElementById('page-select-group').style.display = type == 'page' ? 'block' : 'none';
+          document.getElementById('custom-url-group').style.display = type == 'custom' ? 'block' : 'none';
         }
 
         document.getElementById('menu-type').addEventListener('change', toggleMenuFields);

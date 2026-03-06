@@ -1,15 +1,15 @@
 @extends('admin.layout')
 
 @section('content')
-
-    <h1 class="page-title">Post Form</h1>
-
     <div class="card">
+        <h1 class="page-title">Post Form</h1>
         <form method="POST" enctype="multipart/form-data"
               action="{{ isset($post) ? route('admin.posts.update',$post->id) : route('admin.posts.store') }}">
 
             @csrf
-            @if(isset($post)) @method('PUT') @endif
+            @if(isset($post))
+                @method('PUT')
+            @endif
 
             <div class="form-group">
                 <label>Title</label>
@@ -31,8 +31,8 @@
 
             <div class="form-group">
                 <label>Content</label>
-{{--                <textarea id="editor">{ old('content', $post->content ?? '') }</textarea>
-                <input type="hidden" name="content" id="content-input">--}}
+                {{--                <textarea id="editor">{ old('content', $post->content ?? '') }</textarea>
+                                <input type="hidden" name="content" id="content-input">--}}
                 <textarea name="content" class="w-full border px-3 py-2" rows="6">{{ old('content') }}</textarea>
             </div>
 
@@ -56,16 +56,16 @@
 
         </form>
     </div>
-   {{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-      tinymce.init({
-        selector:'#editor',
-        plugins: 'image link lists media table',
-        toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media table',
-        menubar: false,
-        height: 400,
-      });
-    </script>--}}
+    {{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+     <script>
+       tinymce.init({
+         selector:'#editor',
+         plugins: 'image link lists media table',
+         toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media table',
+         menubar: false,
+         height: 400,
+       });
+     </script>--}}
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
 
@@ -75,10 +75,10 @@
         modules: {
           toolbar: {
             container: [
-              [{ header: [1, 2, false] }],
+              [{header: [1, 2, false]}],
               ['bold', 'italic', 'underline'],
               ['link', 'image', 'video'],
-              [{ list: 'ordered' }, { list: 'bullet' }]
+              [{list: 'ordered'}, {list: 'bullet'}]
             ],
             handlers: {
               'image': imageHandler
@@ -104,14 +104,14 @@
             body: formData
           });
           const data = await res.json();
-          if(data.url) {
+          if (data.url) {
             const range = quill.getSelection();
             quill.insertEmbed(range.index, 'image', data.url);
           }
         };
       }
 
-      document.querySelector('form').onsubmit = function() {
+      document.querySelector('form').onsubmit = function () {
         document.querySelector('#content-input').value = quill.root.innerHTML;
       };
     </script>

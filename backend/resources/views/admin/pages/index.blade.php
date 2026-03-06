@@ -1,16 +1,13 @@
 @extends('admin.layout')
 
 @section('content')
-
-    <h1 class="text-2xl mb-4">Pages</h1>
-
     <div class="card mb-3 p-3">
+        <h1 class="text-2xl mb-4">Pages</h1>
         <div class="mb-2">
             <a href="{{ route('admin.pages.create') }}" class="btn btn-success">Add Page</a>
             <a href="{{ route('admin.pages.trash') }}" class="btn btn-danger">Trash</a>
         </div>
     </div>
-
     <table class="table table-bordered">
         <thead>
         <tr>
