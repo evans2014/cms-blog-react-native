@@ -9,6 +9,9 @@
                 Trash
             </a>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
     </div>
     <table class="table table-bordered">
         <thead>

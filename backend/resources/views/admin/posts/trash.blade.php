@@ -6,6 +6,11 @@
         <div class="mb-2">
             <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Back to Posts</a>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
     <br>
     <table class="table table-bordered">
