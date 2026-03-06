@@ -12,7 +12,9 @@
             <p style="font-size:28px; font-weight:bold;">
                 {{ \App\Models\Post::count() }}
             </p>
+            <div class="mb-2">
             <a href="{{ route('admin.posts.index') }}" class="btn btn-primary">Manage</a>
+            </div>
         </div>
 
         <div class="card">
@@ -20,7 +22,9 @@
             <p style="font-size:28px; font-weight:bold;">
                 {{ \App\Models\Page::count() }}
             </p>
+            <div class="mb-2">
             <a href="{{ route('admin.pages.index') }}" class="btn btn-primary">Manage</a>
+            </div>
         </div>
 
         <div class="card">
@@ -28,7 +32,9 @@
             <p style="font-size:28px; font-weight:bold;">
                 {{ \App\Models\Menu::count() }}
             </p>
+            <div class="mb-2">
             <a href="{{ route('admin.menus.index') }}" class="btn btn-primary">Manage</a>
+            </div>
         </div>
 
     </div>

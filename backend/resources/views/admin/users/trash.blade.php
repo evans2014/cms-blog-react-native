@@ -5,7 +5,7 @@
 
 
 <div class="card">
-    <h1>Кошче на потребители</h1>
+    <h1 class="page-title">Кошче на потребители</h1>
     <div class="mb-2">
     <a href="{{ route('admin.users.index') }}" class="btn btn-secondary mb-3">← Всички потребители</a>
     </div>

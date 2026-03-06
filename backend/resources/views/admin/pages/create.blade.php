@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h1 class="text-2xl mb-4">Add Page</h1>
+        <h1 class="page-title">Add Page</h1>
         <form action="{{ route('admin.pages.store') }}" method="POST">
             @csrf
             <div class="form-group">

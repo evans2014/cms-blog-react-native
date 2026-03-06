@@ -5,7 +5,7 @@
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8">
         <div class="card">
-            <h1>Потребители</h1>
+            <h1 class="page-title">Потребители</h1>
             <div class="mb-2">
                 <a href="{{ route('admin.users.create') }}" class="btn btn-success">
                     + Нов потребител

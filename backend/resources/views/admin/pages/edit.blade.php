@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <h1 class="text-2xl mb-4">Edit Page</h1>
+        <h1 class="page-title">Edit Page</h1>
         <form action="{{ route('admin.pages.update', $page->id) }}" method="POST">
             @csrf
             @method('PUT')

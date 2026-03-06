@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="card">
-    <h1>Редактирай потребител</h1>
+        <h1 class="page-title">Редактирай потребител</h1>
 
     <form method="POST" action="{{ route('admin.users.update', $user) }}">
         @csrf

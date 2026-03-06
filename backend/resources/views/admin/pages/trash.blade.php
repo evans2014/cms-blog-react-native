@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card mb-3 p-3">
-        <h1>Trash - Deleted Pages</h1>
+        <h1 class="page-title">Trash - Deleted Pages</h1>
         <div class="mb-2">
             <a href="{{ route('admin.pages.index') }}" class="btn btn-primary">Back to Pages</a>
         </div>
