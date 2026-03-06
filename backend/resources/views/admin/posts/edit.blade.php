@@ -30,8 +30,7 @@
             </div>
             <div class="form-group">
                 <label>Content</label>
-                <div id="editor">{!! old('content', $post->content ?? '') !!}</div>
-                <input type="hidden" name="content" id="content-input">
+                <textarea name="content" class="w-full border px-3 py-2" rows="6">{{ old('content', $post->content ?? '') }}</textarea>
             </div>
             <div class="form-group">
                 <label>Post Image</label>

@@ -55,9 +55,38 @@ class PageController extends Controller
         return redirect()->route('admin.pages.index')->with('success', 'Page updated.');
     }
 
-    public function destroy(Page $page)
+/*    public function destroy(Page $page)
     {
         $page->delete();
         return redirect()->route('admin.pages.index')->with('success', 'Page deleted.');
+    }*/
+    public function destroy($id)
+    {
+        $page = Page::findOrFail($id);
+        $page->delete();
+        return redirect()->back()->with('success', 'Page moved to trash');
+    }
+
+
+    public function restore($id)
+    {
+        $post = Page::withTrashed()->findOrFail($id);
+        $post->restore();
+
+        return redirect()->back()->with('success', 'Post restored successfully');
+    }
+
+    public function trash()
+    {
+        $pages = Page::onlyTrashed()->get();
+        return view('admin.pages.trash', compact('pages'));
+    }
+
+    public function forceDelete($id)
+    {
+        $post = Page::withTrashed()->findOrFail($id);
+        $post->forceDelete();
+
+        return redirect()->back()->with('success', 'Post permanently deleted');
     }
 }

@@ -4,8 +4,13 @@
 
     <h1 class="page-title">Posts</h1>
 
-    <div class="card">
+    <div class="card mb-3 p-3">
+        <div class="mb-2">
         <a href="{{ route('admin.posts.create') }}" class="btn btn-success">+ Add Post</a>
+        <a href="{{ route('admin.posts.trash') }}" class="btn btn-danger">
+            Trash
+        </a>
+        </div>
     </div>
 
     <table class="table">
@@ -31,6 +36,7 @@
                         @method('DELETE')
                         <button class="btn btn-danger">Delete</button>
                     </form>
+
                 </td>
             </tr>
         @endforeach

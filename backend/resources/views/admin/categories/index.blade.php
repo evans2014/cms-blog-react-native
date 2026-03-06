@@ -5,7 +5,9 @@
     <h1 class="page-title">Categories</h1>
 
     <div class="card">
+        <div class="mb-2">
         <a href="{{ route('admin.categories.create') }}" class="btn btn-success">+ Add Category</a>
+        </div>
     </div>
 
     <table class="table">

@@ -135,4 +135,26 @@ class PostController extends Controller
 
         return $slug;
     }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->findOrFail($id);
+        $post->restore();
+
+        return redirect()->back()->with('success', 'Post restored successfully');
+    }
+
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->get();
+        return view('admin.posts.trash', compact('posts'));
+    }
+
+    public function forceDelete($id)
+    {
+        $post = Post::withTrashed()->findOrFail($id);
+        $post->forceDelete();
+
+        return redirect()->back()->with('success', 'Post permanently deleted');
+    }
 }

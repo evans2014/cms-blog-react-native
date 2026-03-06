@@ -5,7 +5,9 @@
     <h1 class="page-title">Menus</h1>
 
     <div class="card mb-3">
+        <div class="mb-2">
         <a href="{{ route('admin.menus.create') }}" class="btn btn-success">+ Add Menu Item</a>
+        </div>
     </div>
 
     <div class="card">
